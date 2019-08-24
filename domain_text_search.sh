@@ -3,6 +3,9 @@
 # Input: Search query and a text file of domains (one per line)
 # Output: Generates a searchoutput_[TIMESTAMP].csv file in current dir
 
+# If having trouble with request throttling - adjust time between requests below
+WAITSECONDS=1
+
 # Fail if we don't have curl installed
 if ! [ -x "$(command -v curl)" ]; then
   echo 'Error: curl is not installed.' >&2
@@ -47,7 +50,7 @@ do
     DOMAINSWITHTEXT=$((DOMAINSWITHTEXT+1))
   fi
 
-  sleep 3
+  sleep $WAITSECONDS
 done < "$INPUTFILE"
 
 # Some final output with stats
